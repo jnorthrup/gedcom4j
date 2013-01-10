@@ -21,14 +21,14 @@
  */
 package org.gedcom4j.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 
 import java.io.*;
 import java.util.List;
 
-import org.junit.Test;
+import junit.framework.Test;
 
 /**
  * @author frizbog1

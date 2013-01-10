@@ -21,10 +21,10 @@
  */
 package org.gedcom4j.io;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 
 import org.gedcom4j.io.AnselMapping;
-import org.junit.Test;
+import junit.framework.Test;
 
 /**
  * @author frizbog1

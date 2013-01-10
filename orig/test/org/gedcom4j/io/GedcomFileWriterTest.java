@@ -21,9 +21,9 @@
  */
 package org.gedcom4j.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +37,7 @@ import org.gedcom4j.io.GedcomFileWriter.LineTerminator;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.writer.GedcomWriter;
 import org.gedcom4j.writer.GedcomWriterException;
-import org.junit.Test;
+import junit.framework.Test;
 
 
 /**

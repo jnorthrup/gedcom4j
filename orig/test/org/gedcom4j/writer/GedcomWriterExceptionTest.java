@@ -24,7 +24,7 @@ package org.gedcom4j.writer;
 import junit.framework.Assert;
 
 import org.gedcom4j.writer.GedcomWriterException;
-import org.junit.Test;
+import junit.framework.Test;
 
 /**
  * @author frizbog1

@@ -1,8 +1,8 @@
 package org.gedcom4j.model;
 
 import org.gedcom4j.model.IndividualEventType;
-import org.junit.Assert;
-import org.junit.Test;
+import junit.framework.Assert;
+import junit.framework.Test;
 
 /**
  * Test for the individual event type

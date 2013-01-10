@@ -21,9 +21,9 @@
  */
 package org.gedcom4j.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,7 +33,7 @@ import org.gedcom4j.model.Individual;
 import org.gedcom4j.model.Note;
 import org.gedcom4j.parser.GedcomParser;
 import org.gedcom4j.parser.GedcomParserException;
-import org.junit.Test;
+import junit.framework.Test;
 
 
 /**

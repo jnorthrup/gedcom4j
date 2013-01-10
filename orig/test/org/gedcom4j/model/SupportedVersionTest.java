@@ -22,12 +22,12 @@
 
 package org.gedcom4j.model;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.fail;
 
 import org.gedcom4j.model.SupportedVersion;
 import org.gedcom4j.model.UnsupportedVersionException;
-import org.junit.Test;
+import junit.framework.Test;
 
 /**
  * Test for the SupportedVersion class

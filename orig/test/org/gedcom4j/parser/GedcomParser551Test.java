@@ -21,17 +21,17 @@
  */
 package org.gedcom4j.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.gedcom4j.model.*;
 import org.gedcom4j.query.Finder;
-import org.junit.Test;
+import junit.framework.Test;
 
 /**
  * These are tests for the Gedcom Parser that are specific to GEDCOM 5.5.1. This class may eventually be combined with

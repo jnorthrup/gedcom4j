@@ -23,8 +23,8 @@ package org.gedcom4j.validate;
 
 import org.gedcom4j.validate.GedcomValidationFinding;
 import org.gedcom4j.validate.Severity;
-import org.junit.Assert;
-import org.junit.Test;
+import junit.framework.Assert;
+import junit.framework.Test;
 
 /**
  * Test for {@link GedcomValidationFinding}

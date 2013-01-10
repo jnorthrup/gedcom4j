@@ -21,10 +21,10 @@
  */
 package org.gedcom4j.relationship;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Set;
@@ -35,8 +35,8 @@ import org.gedcom4j.parser.GedcomParser;
 import org.gedcom4j.parser.GedcomParserException;
 import org.gedcom4j.query.Finder;
 import org.gedcom4j.relationship.AncestryCalculator;
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.Before;
+import junit.framework.Test;
 
 
 /**

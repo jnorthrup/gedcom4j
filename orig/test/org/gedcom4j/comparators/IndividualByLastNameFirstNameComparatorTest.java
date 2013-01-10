@@ -21,12 +21,12 @@
  */
 package org.gedcom4j.comparators;
 
-import static org.junit.Assert.assertTrue;
+import static junit.framework.Assert.assertTrue;
 
 import org.gedcom4j.model.Individual;
 import org.gedcom4j.model.PersonalName;
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.Before;
+import junit.framework.Test;
 
 /**
  * Test for {@link IndividualByLastNameFirstNameComparator}

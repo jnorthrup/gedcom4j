@@ -24,7 +24,7 @@ package org.gedcom4j.validate;
 import junit.framework.Assert;
 
 import org.gedcom4j.validate.GedcomValidationException;
-import org.junit.Test;
+import junit.framework.Test;
 
 /**
  * @author frizbog1

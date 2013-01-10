@@ -22,14 +22,14 @@
 
 package org.gedcom4j.writer;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.*;
 
 import java.io.IOException;
 
 import org.gedcom4j.model.*;
 import org.gedcom4j.parser.GedcomParser;
 import org.gedcom4j.parser.GedcomParserException;
-import org.junit.Test;
+import junit.framework.Test;
 
 /**
  * Test some specific stuff for GEDCOM 5.5.1

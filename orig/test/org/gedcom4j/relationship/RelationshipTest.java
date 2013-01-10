@@ -21,13 +21,13 @@
  */
 package org.gedcom4j.relationship;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 import org.gedcom4j.model.Individual;
 import org.gedcom4j.relationship.Relationship;
-import org.junit.Test;
+import junit.framework.Test;
 
 
 /**

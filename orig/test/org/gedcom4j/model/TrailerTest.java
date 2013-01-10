@@ -21,11 +21,11 @@
  */
 package org.gedcom4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 
 import org.gedcom4j.model.Trailer;
-import org.junit.Test;
+import junit.framework.Test;
 
 /**
  * @author frizbog1
