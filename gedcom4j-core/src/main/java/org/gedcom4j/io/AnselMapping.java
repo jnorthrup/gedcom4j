@@ -21,194 +21,56 @@
  */
 package org.gedcom4j.io;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.util.Arrays;
 
 /**
  * @author frizbog1
- * 
  */
-public final class AnselMapping {
+public class AnselMapping {
 
     /**
      * The encoding mapping from characters to arrays of byte
      */
-    private static Map<Character, Character> charToByte = new HashMap<>();
-
+    private static ByteBuffer charToByte = ByteBuffer.allocate(0xffff);
     /**
      * The encoding mapping from characters to arrays of byte
      */
-    private static Map<Character, Character> byteToChar = new HashMap<>();
+    private static CharBuffer byteToChar = CharBuffer.allocate(0xff);
 
     static {
-        charToByte.put('\u0141',
-                (char) 0xA1);
-        charToByte.put('\u00D8',
-                (char) 0xA2);
-        charToByte.put('\u0110',
-                (char) 0xA3);
-        charToByte.put('\u00DE',
-                (char) 0xA4);
-        charToByte.put('\u00C6',
-                (char) 0xA5);
-        charToByte.put('\u0152',
-                (char) 0xA6);
-        charToByte.put('\u02B9',
-                (char) 0xA7);
-        charToByte.put('\u00B7',
-                (char) 0xA8);
-        charToByte.put('\u266D',
-                (char) 0xA9);
-        charToByte.put('\u00AE',
-                (char) 0xAA);
-        charToByte.put('\u00B1',
-                (char) 0xAB);
-        charToByte.put('\u01A0',
-                (char) 0xAC);
-        charToByte.put('\u01AF',
-                (char) 0xAD);
-        charToByte.put('\u02BC',
-                (char) 0xAE);
-        charToByte.put('\u02BB',
-                (char) 0xB0);
-        charToByte.put('\u0142',
-                (char) 0xB1);
-        charToByte.put('\u00F8',
-                (char) 0xB2);
-        charToByte.put('\u0111',
-                (char) 0xB3);
-        charToByte.put('\u00FE',
-                (char) 0xB4);
-        charToByte.put('\u00E6',
-                (char) 0xB5);
-        charToByte.put('\u0153',
-                (char) 0xB6);
-        charToByte.put('\u02BA',
-                (char) 0xB7);
-        charToByte.put('\u0131',
-                (char) 0xB8);
-        charToByte.put('\u00A3',
-                (char) 0xB9);
-        charToByte.put('\u00F0',
-                (char) 0xBA);
-        charToByte.put('\u01A1',
-                (char) 0xBC);
-        charToByte.put('\u01B0',
-                (char) 0xBD);
-        charToByte.put('\u00B0',
-                (char) 0xC0);
-        charToByte.put('\u2113',
-                (char) 0xC1);
-        charToByte.put('\u2117',
-                (char) 0xC2);
-        charToByte.put('\u00A9',
-                (char) 0xC3);
-        charToByte.put('\u266F',
-                (char) 0xC4);
-        charToByte.put('\u00BF',
-                (char) 0xC5);
-        charToByte.put('\u00A1',
-                (char) 0xC6);
-        charToByte.put('\u00DF',
-                (char) 0xCF);
-        charToByte.put('\u0309',
-                (char) 0xE0);
-        charToByte.put('\u0300',
-                (char) 0xE1);
-        charToByte.put('\u0301',
-                (char) 0xE2);
-        charToByte.put('\u0302',
-                (char) 0xE3);
-        charToByte.put('\u0303',
-                (char) 0xE4);
-        charToByte.put('\u0304',
-                (char) 0xE5);
-        charToByte.put('\u0306',
-                (char) 0xE6);
-        charToByte.put('\u0307',
-                (char) 0xE7);
-        charToByte.put('\u0308',
-                (char) 0xE8);
-        charToByte.put('\u030C',
-                (char) 0xE9);
-        charToByte.put('\u030A',
-                (char) 0xEA);
-        charToByte.put('\uFE20',
-                (char) 0xEB);
-        charToByte.put('\uFE21',
-                (char) 0xEC);
-        charToByte.put('\u0315',
-                (char) 0xED);
-        charToByte.put('\u030B',
-                (char) 0xEE);
-        charToByte.put('\u0310',
-                (char) 0xEF);
-        charToByte.put('\u0327',
-                (char) 0xF0);
-        charToByte.put('\u0328',
-                (char) 0xF1);
-        charToByte.put('\u0323',
-                (char) 0xF2);
-        charToByte.put('\u0324',
-                (char) 0xF3);
-        charToByte.put('\u0325',
-                (char) 0xF4);
-        charToByte.put('\u0333',
-                (char) 0xF5);
-        charToByte.put('\u0332',
-                (char) 0xF6);
-        charToByte.put('\u0326',
-                (char) 0xF7);
-        charToByte.put('\u031C',
-                (char) 0xF8);
-        charToByte.put('\u032E',
-                (char) 0xF9);
-        charToByte.put('\uFE22',
-                (char) 0xFA);
-        charToByte.put('\uFE23',
-                (char) 0xFB);
-        charToByte.put('\u0313',
-                (char) 0xFE);
-
-        // Derive the reverse mapping from the original
-        for (Entry<Character, Character> e : charToByte.entrySet()) {
-            byteToChar.put(e.getValue(), e.getKey());
+        Arrays.fill(charToByte.array(), (byte) ('?' & 0xff));
+        Arrays.fill(byteToChar.array(), (char) ('?' & 0xff));
+        for (int i = 0; 0x7f > i; i++) {
+            charToByte.put(i, (byte) (i & 0xff));
+            byteToChar.put(i, (char) (i & 0xff));
         }
+        charToByte.put('\u0141', (byte) 0xA1).put('\u00D8', (byte) 0xA2).put('\u0110', (byte) 0xA3).put('\u00DE', (byte) 0xA4).put('\u00C6', (byte) 0xA5).put('\u0152', (byte) 0xA6).put('\u02B9', (byte) 0xA7).put('\u00B7', (byte) 0xA8).put('\u266D', (byte) 0xA9).put('\u00AE', (byte) 0xAA).put('\u00B1', (byte) 0xAB).put('\u01A0', (byte) 0xAC).put('\u01AF', (byte) 0xAD).put('\u02BC', (byte) 0xAE).put('\u02BB', (byte) 0xB0).put('\u0142', (byte) 0xB1).put('\u00F8', (byte) 0xB2).put('\u0111', (byte) 0xB3).put('\u00FE', (byte) 0xB4).put('\u00E6', (byte) 0xB5).put('\u0153', (byte) 0xB6).put('\u02BA', (byte) 0xB7).put('\u0131', (byte) 0xB8).put('\u00A3', (byte) 0xB9).put('\u00F0', (byte) 0xBA).put('\u01A1', (byte) 0xBC).put('\u01B0', (byte) 0xBD).put('\u00B0', (byte) 0xC0).put('\u2113', (byte) 0xC1).put('\u2117', (byte) 0xC2).put('\u00A9', (byte) 0xC3).put('\u266F', (byte) 0xC4).put('\u00BF', (byte) 0xC5).put('\u00A1', (byte) 0xC6).put('\u00DF', (byte) 0xCF).put('\u0309', (byte) 0xE0).put('\u0300', (byte) 0xE1).put('\u0301', (byte) 0xE2).put('\u0302', (byte) 0xE3).put('\u0303', (byte) 0xE4).put('\u0304', (byte) 0xE5).put('\u0306', (byte) 0xE6).put('\u0307', (byte) 0xE7).put('\u0308', (byte) 0xE8).put('\u030C', (byte) 0xE9).put('\u030A', (byte) 0xEA).put('\uFE20', (byte) 0xEB).put('\uFE21', (byte) 0xEC).put('\u0315', (byte) 0xED).put('\u030B', (byte) 0xEE).put('\u0310', (byte) 0xEF).put('\u0327', (byte) 0xF0).put('\u0328', (byte) 0xF1).put('\u0323', (byte) 0xF2).put('\u0324', (byte) 0xF3).put('\u0325', (byte) 0xF4).put('\u0333', (byte) 0xF5).put('\u0332', (byte) 0xF6).put('\u0326', (byte) 0xF7).put('\u031C', (byte) 0xF8).put('\u032E', (byte) 0xF9).put('\uFE22', (byte) 0xFA).put('\uFE23', (byte) 0xFB).put('\u0313', (byte) 0xFE);
+
+        charToByte.position(0x80);
+        do {
+            int position = charToByte.position();
+            byte b = charToByte.get();
+            if (('?' & 0xff) != (b & 0xff))
+
+
+                byteToChar.put(b & 0xff, (char) (position));
+        } while (charToByte.hasRemaining());
     }
 
     /**
-     * Decode an ANSEL byte into a UTF-16 Character
-     * 
-     * @param b
-     *            the ANSEL byte (in int form)
-     * @return the character (in UTF-16) represented by the byte
+     * Decode an ANSEL byte into a UTF-16 Character @param b the ANSEL byte (in int form) @return the character (in UTF-16) represented by the byte
      */
     public static char decode(int b) {
-        if (b < 0x80) {
-            return (char) b;
-        }
-        Character result = byteToChar.get((char) b);
-        if (result == null) {
-            // Map unmappable characters to a question mark
-            return '?';
-        }
-        return result;
+        return (char) (byteToChar.get(b) & 0xffff);
     }
 
     /**
-     * Encode a UTF-16 character into an ANSEL byte
-     * 
-     * @param c
-     *            the ANSEL byte (as a char)
-     * @return the character (in UTF-16) represented by the byte
+     * Encode a UTF-16 character into an ANSEL byte @param c the ANSEL byte (as a char) @return the character (in UTF-16) represented by the byte
      */
     public static char encode(char c) {
-        Character b = charToByte.get(c);
-        if (b != null) {
-            return b;
-        }
-        return c;
+        return (char) (charToByte.get(c) & 0xff);
     }
 
     /**
@@ -217,5 +79,4 @@ public final class AnselMapping {
     private AnselMapping() {
         super();
     }
-
 }

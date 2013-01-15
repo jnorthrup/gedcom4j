@@ -183,11 +183,7 @@ public class GedcomFileWriter {
                 return;
             }
             if ("1 CHAR UNICODE".equals(line)) {
-                if (useLittleEndianForUnicode) {
-                    encoding = Encoding.UNICODE_LITTLE_ENDIAN;
-                } else {
-                    encoding = Encoding.UNICODE_BIG_ENDIAN;
-                }
+                encoding = useLittleEndianForUnicode ? Encoding.UNICODE_LITTLE_ENDIAN : Encoding.UNICODE_BIG_ENDIAN;
                 return;
             }
         }

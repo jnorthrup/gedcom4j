@@ -21,11 +21,11 @@
  */
 package org.gedcom4j.comparators;
 
-import java.io.Serializable;
-import java.util.Comparator;
-
 import org.gedcom4j.model.Individual;
 import org.gedcom4j.model.PersonalName;
+
+import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * Comparator for sorting individuals by last name (surname) first, then first (given) name
@@ -56,15 +56,15 @@ public class IndividualByLastNameFirstNameComparator implements Serializable, Co
         String s2 = "-unknown-";
         PersonalName n1 = null;
         PersonalName n2 = null;
-        if (i1.names.size() > 0) {
+        if (0 < i1.names.size()) {
             n1 = i1.names.get(0);
         }
-        if (i2.names.size() > 0) {
+        if (0 < i2.names.size()) {
             n2 = i2.names.get(0);
         }
 
-        if (n1 != null) {
-            if (n1.surname == null && n1.givenName == null) {
+        if (null != n1) {
+            if (null == n1.surname && null == n1.givenName) {
                 if (n1.basic.contains("/")) {
                     String sn = n1.basic.substring(n1.basic.indexOf('/'));
                     String gn = n1.basic.substring(0, n1.basic.indexOf('/'));
@@ -75,8 +75,8 @@ public class IndividualByLastNameFirstNameComparator implements Serializable, Co
             }
         }
 
-        if (n2 != null) {
-            if (n2.surname == null && n2.givenName == null) {
+        if (null != n2) {
+            if (null == n2.surname && null == n2.givenName) {
                 if (n2.basic.contains("/")) {
                     String sn = n2.basic.substring(n2.basic.indexOf('/'));
                     String gn = n2.basic.substring(0, n2.basic.indexOf('/'));
