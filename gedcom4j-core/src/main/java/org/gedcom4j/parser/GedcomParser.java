@@ -560,8 +560,9 @@ public class GedcomParser {
                     break;
                 case "RESN":
                     f.restrictionNotice = new StringWithCustomTags(ch);
-                    if (g55())
+                    if (g55()) {
                         warnings.add("GEDCOM version is 5.5 but restriction notice was specified for family on line " + ch.lineNum + " , which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                    }
                     break;
                 case "RFN":
                     f.recFileNumber = new StringWithCustomTags(ch);
@@ -578,8 +579,11 @@ public class GedcomParser {
                     loadUserReference(ch, u);
                     break;
                 default:
-                    if (FamilyEventType.isValidTag(tag)) loadFamilyEvent(ch, f.events);
-                    else unknownTag(ch, f);
+                    if (FamilyEventType.isValidTag(tag)) {
+                        loadFamilyEvent(ch, f.events);
+                    } else {
+                        unknownTag(ch, f);
+                    }
                     break;
             }
         }
@@ -1040,105 +1044,111 @@ public class GedcomParser {
         gedcom.individuals.put(st.id, i);
         i.xref = st.id;
         for (StringTree ch : st.children) {
-            if ("NAME".equals(ch.tag)) {
-                PersonalName pn = new PersonalName();
-                i.names.add(pn);
-                loadPersonalName(ch, pn);
-            } else if ("SEX".equals(ch.tag)) {
-                i.sex = new StringWithCustomTags(ch);
-            } else if ("ADDR".equals(ch.tag)) {
-                i.address = new Address();
-                loadAddress(ch, i.address);
-            } else if ("PHON".equals(ch.tag)) {
-                i.phoneNumbers.add(new StringWithCustomTags(ch));
-            } else if ("WWW".equals(ch.tag)) {
-                i.wwwUrls.add(new StringWithCustomTags(ch));
-                if (g55()) {
-                    warnings.add("GEDCOM version is 5.5 but WWW URL was specified for individual " + i.xref
-                            + " on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                            + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-                }
-            } else if ("FAX".equals(ch.tag)) {
-                i.faxNumbers.add(new StringWithCustomTags(ch));
-                if (g55()) {
-                    warnings.add("GEDCOM version is 5.5 but fax was specified for individual " + i.xref + "on line "
-                            + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                            + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-                }
-            } else if ("EMAIL".equals(ch.tag)) {
-                i.emails.add(new StringWithCustomTags(ch));
-                if (g55()) {
-                    warnings.add("GEDCOM version is 5.5 but email was specified for individual " + i.xref + " on line "
-                            + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                            + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-                }
-            } else if (IndividualEventType.isValidTag(ch.tag)) {
-                loadIndividualEvent(ch, i.events);
-            } else if (IndividualAttributeType.isValidTag(ch.tag)) {
-                loadIndividualAttribute(ch, i.attributes);
-            } else if (LdsIndividualOrdinanceType.isValidTag(ch.tag)) {
-                loadLdsIndividualOrdinance(ch, i.ldsIndividualOrdinances);
-            } else if ("NOTE".equals(ch.tag)) {
-                loadNote(ch, i.notes);
-            } else if ("CHAN".equals(ch.tag)) {
-                i.changeDate = new ChangeDate();
-                loadChangeDate(ch, i.changeDate);
-            } else if ("RIN".equals(ch.tag)) {
-                i.recIdNumber = new StringWithCustomTags(ch);
-            } else if ("RFN".equals(ch.tag)) {
-                i.permanentRecFileNumber = new StringWithCustomTags(ch);
-            } else if ("OBJE".equals(ch.tag)) {
-                loadMultimediaLink(ch, i.multimedia);
-            } else if ("RESN".equals(ch.tag)) {
-                i.restrictionNotice = new StringWithCustomTags(ch);
-            } else if ("SOUR".equals(ch.tag)) {
-                loadCitation(ch, i.citations);
-            } else if ("ALIA".equals(ch.tag)) {
-                i.aliases.add(new StringWithCustomTags(ch));
-            } else if ("FAMS".equals(ch.tag)) {
-                loadFamilyWhereSpouse(ch, i.familiesWhereSpouse);
-            } else if ("FAMC".equals(ch.tag)) {
-                loadFamilyWhereChild(ch, i.familiesWhereChild);
-            } else if ("ASSO".equals(ch.tag)) {
-                loadAssociation(ch, i.associations);
-            } else if ("ANCI".equals(ch.tag)) {
-                i.ancestorInterest.add(getSubmitter(ch.value));
-            } else if ("DESI".equals(ch.tag)) {
-                i.descendantInterest.add(getSubmitter(ch.value));
-            } else if ("AFN".equals(ch.tag)) {
-                i.ancestralFileNumber = new StringWithCustomTags(ch);
-            } else if ("REFN".equals(ch.tag)) {
-                UserReference u = new UserReference();
-                i.userReferences.add(u);
-                loadUserReference(ch, u);
-            } else if ("SUBM".equals(ch.tag)) {
-                i.submitters.add(getSubmitter(ch.value));
-            } else {
-                unknownTag(ch, i);
+            String tag = ch.tag;
+            switch (tag) {
+                case "NAME":
+                    PersonalName pn = new PersonalName();
+                    i.names.add(pn);
+                    loadPersonalName(ch, pn);
+                    break;
+                case "SEX":
+                    i.sex = new StringWithCustomTags(ch);
+                    break;
+                case "ADDR":
+                    i.address = new Address();
+                    loadAddress(ch, i.address);
+                    break;
+                case "PHON":
+                    i.phoneNumbers.add(new StringWithCustomTags(ch));
+                    break;
+                case "WWW":
+                    i.wwwUrls.add(new StringWithCustomTags(ch));
+                    if (g55()) {
+                        warnings.add("GEDCOM version is 5.5 but WWW URL was specified for individual " + i.xref + " on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                    }
+                    break;
+                case "FAX":
+                    i.faxNumbers.add(new StringWithCustomTags(ch));
+                    if (g55()) {
+                        warnings.add("GEDCOM version is 5.5 but fax was specified for individual " + i.xref + "on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                    }
+                    break;
+                case "EMAIL":
+                    i.emails.add(new StringWithCustomTags(ch));
+                    if (g55()) {
+                        warnings.add("GEDCOM version is 5.5 but email was specified for individual " + i.xref + " on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                    }
+                    break;
+                case "CHAN":
+                    i.changeDate = new ChangeDate();
+                    loadChangeDate(ch, i.changeDate);
+                    break;
+                case "RIN":
+                    i.recIdNumber = new StringWithCustomTags(ch);
+                    break;
+                case "RFN":
+                    i.permanentRecFileNumber = new StringWithCustomTags(ch);
+                    break;
+                case "OBJE":
+                    loadMultimediaLink(ch, i.multimedia);
+                    break;
+                case "RESN":
+                    i.restrictionNotice = new StringWithCustomTags(ch);
+                    break;
+                case "SOUR":
+                    loadCitation(ch, i.citations);
+                    break;
+                case "ALIA":
+                    i.aliases.add(new StringWithCustomTags(ch));
+                    break;
+                case "FAMS":
+                    loadFamilyWhereSpouse(ch, i.familiesWhereSpouse);
+                    break;
+                case "FAMC":
+                    loadFamilyWhereChild(ch, i.familiesWhereChild);
+                    break;
+                case "ASSO":
+                    loadAssociation(ch, i.associations);
+                    break;
+                case "ANCI":
+                    i.ancestorInterest.add(getSubmitter(ch.value));
+                    break;
+                case "DESI":
+                    i.descendantInterest.add(getSubmitter(ch.value));
+                    break;
+                case "AFN":
+                    i.ancestralFileNumber = new StringWithCustomTags(ch);
+                    break;
+                case "REFN":
+                    UserReference u = new UserReference();
+                    i.userReferences.add(u);
+                    loadUserReference(ch, u);
+                    break;
+                case "SUBM":
+                    i.submitters.add(getSubmitter(ch.value));
+                    break;
+                case "NOTE":
+                    loadNote(ch, i.notes);
+                    break;
+                default:
+                    if (IndividualEventType.isValidTag(tag)) {
+                        loadIndividualEvent(ch, i.events);
+                    } else if (IndividualAttributeType.isValidTag(tag)) {
+                        loadIndividualAttribute(ch, i.attributes);
+                    } else if (LdsIndividualOrdinanceType.isValidTag(tag)) {
+                        loadLdsIndividualOrdinance(ch, i.ldsIndividualOrdinances);
+                    } else {
+                        unknownTag(ch, i);
+                    }
+                    break;
             }
         }
-
     }
 
-    /**
-     * Load an attribute about an individual from a string tree node
-     * 
-     * @param st
-     *            the node
-     * @param attributes
-     *            the list of individual attributes
-     */
-    private void loadIndividualAttribute(StringTree st, List<IndividualAttribute> attributes) {
-        IndividualAttribute a = new IndividualAttribute();
-        attributes.add(a);
-        a.type = IndividualAttributeType.getFromTag(st.tag);
-        if (IndividualAttributeType.FACT.equals(a.type) && g55()) {
-            warnings.add("FACT tag specified on a GEDCOM 5.5 file at line " + st.lineNum
-                    + ", but FACT was not added until 5.5.1."
-                    + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-        }
-        a.description = new StringWithCustomTags(st.value);
-        for (StringTree ch : st.children) {
+    /** Load an attribute about an individual from a string tree node @param st the node @param attributes the list of individual attributes */ private void loadIndividualAttribute(StringTree st, List<IndividualAttribute> attributes) { IndividualAttribute a = new IndividualAttribute(); attributes.add(a); a.type = IndividualAttributeType.getFromTag(st.tag); if (IndividualAttributeType.FACT.equals(a.type) && g55()) {
+        warnings.add("FACT tag specified on a GEDCOM 5.5 file at line " + st.lineNum + ", but FACT was not added until 5.5.1.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+    }
+        a.description = new StringWithCustomTags(st.value); for (StringTree ch : st.children) {
             switch (ch.tag) {
                 case "TYPE":
                     a.subType = new StringWithCustomTags(ch);
@@ -1168,25 +1178,19 @@ public class GedcomParser {
                 case "WWW":
                     a.wwwUrls.add(new StringWithCustomTags(ch));
                     if (g55()) {
-                        warnings.add("GEDCOM version is 5.5 but WWW URL was specified for " + a.type
-                                + " attribute on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                                + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                        warnings.add("GEDCOM version is 5.5 but WWW URL was specified for " + a.type + " attribute on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
                     }
                     break;
                 case "FAX":
                     a.faxNumbers.add(new StringWithCustomTags(ch));
                     if (g55()) {
-                        warnings.add("GEDCOM version is 5.5 but fax was specified for " + a.type + " attribute on line "
-                                + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                                + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                        warnings.add("GEDCOM version is 5.5 but fax was specified for " + a.type + " attribute on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
                     }
                     break;
                 case "EMAIL":
                     a.emails.add(new StringWithCustomTags(ch));
                     if (g55()) {
-                        warnings.add("GEDCOM version is 5.5 but email was specified for " + a.type + " attribute on line "
-                                + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                                + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                        warnings.add("GEDCOM version is 5.5 but email was specified for " + a.type + " attribute on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
                     }
                     break;
                 case "ADDR":
@@ -1198,10 +1202,7 @@ public class GedcomParser {
                     break;
                 case "NOTE":
                     loadNote(ch, a.notes);
-                    break;
-                /*case "SOUR":
-                    loadCitation(ch, a.citations);
-                    break;*/
+                    break; /*case "SOUR": loadCitation(ch, a.citations); break;*/
                 case "CONC":
                     if (null == a.description) {
                         a.description = new StringWithCustomTags(ch);
@@ -1214,126 +1215,101 @@ public class GedcomParser {
                     break;
             }
         }
-    }
-
-    /**
-     * Load an event about an individual from a string tree node
-     * 
-     * @param st
-     *            the node
-     * @param events
-     *            the list of events about an individual
-     */
-    private void loadIndividualEvent(StringTree st, List<IndividualEvent> events) {
-        IndividualEvent e = new IndividualEvent();
-        events.add(e);
-        e.type = IndividualEventType.getFromTag(st.tag);
-        e.yNull = st.value;
-        for (StringTree ch : st.children) {
-            switch (ch.tag) {
-                case "TYPE":
-                    e.subType = new StringWithCustomTags(ch);
-                    break;
-                case "DATE":
-                    e.date = new StringWithCustomTags(ch);
-                    break;
-                case "PLAC":
-                    e.place = new Place();
-                    loadPlace(ch, e.place);
-                    break;
-                case "OBJE":
-                    loadMultimediaLink(ch, e.multimedia);
-                    break;
-                case "NOTE":
-                    loadNote(ch, e.notes);
-                    break;
-                case "SOUR":
-                    loadCitation(ch, e.citations);
-                    break;
-                case "AGE":
-                    e.age = new StringWithCustomTags(ch);
-                    break;
-                case "CAUS":
-                    e.cause = new StringWithCustomTags(ch);
-                    break;
-                case "ADDR":
-                    e.address = new Address();
-                    loadAddress(ch, e.address);
-                    break;
-                case "AGNC":
-                    e.respAgency = new StringWithCustomTags(ch);
-                    break;
-                case "RESN":
-                    e.restrictionNotice = new StringWithCustomTags(ch);
-                    if (g55()) {
-                        warnings.add("GEDCOM version is 5.5 but restriction notice was specified for individual event on line "
-                                + ch.lineNum
-                                + ", which is a GEDCOM 5.5.1 feature."
-                                + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-                    }
-                    break;
-                case "RELI":
-                    e.religiousAffiliation = new StringWithCustomTags(ch);
-                    if (g55()) {
-                        warnings.add("GEDCOM version is 5.5 but religious affiliation was specified for individual event on line "
-                                + ch.lineNum
-                                + ", which is a GEDCOM 5.5.1 feature."
-                                + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-                    }
-                    break;
-                case "PHON":
-                    e.phoneNumbers.add(new StringWithCustomTags(ch));
-                    break;
-                case "WWW":
-                    e.wwwUrls.add(new StringWithCustomTags(ch));
-                    if (g55()) {
-                        warnings.add("GEDCOM version is 5.5 but WWW URL was specified on " + e.type + " event on line "
-                                + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                                + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-                    }
-                    break;
-                case "FAX":
-                    e.faxNumbers.add(new StringWithCustomTags(ch));
-                    if (g55()) {
-                        warnings.add("GEDCOM version is 5.5 but fax was specified on " + e.type + " event on line "
-                                + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                                + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-                    }
-                    break;
-                case "EMAIL":
-                    e.emails.add(new StringWithCustomTags(ch));
-                    if (g55()) {
-                        warnings.add("GEDCOM version is 5.5 but email was specified on " + e.type + " event on line "
-                                + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
-                                + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
-                    }
-                    break;
-                case "CONC":
-                    if (null == e.description) {
-                        e.description = new StringWithCustomTags(ch);
-                    } else {
-                        e.description.value += ch.value;
-                    }
-                    break;
-                case "CONT":
-                    if (null == e.description) {
-                        e.description = new StringWithCustomTags(null == ch.value ? "" : ch.value);
-                    } else {
-                        e.description.value += '\n' + ch.value;
-                    }
-                    break;
-                case "FAMC":
-                    List<FamilyChild> families = new ArrayList<>();
-                    loadFamilyWhereChild(ch, families);
-                    if (!families.isEmpty()) {
-                        e.family = families.get(0);
-                    }
-                    break;
-                default:
-                    unknownTag(ch, e);
-                    break;
-            }
+    } /** Load an event about an individual from a string tree node @param st the node @param events the list of events about an individual */ private void loadIndividualEvent(StringTree st, List<IndividualEvent> events) { IndividualEvent e = new IndividualEvent(); events.add(e); e.type = IndividualEventType.getFromTag(st.tag); e.yNull = st.value; for (StringTree ch : st.children) {
+        switch (ch.tag) {
+            case "TYPE":
+                e.subType = new StringWithCustomTags(ch);
+                break;
+            case "DATE":
+                e.date = new StringWithCustomTags(ch);
+                break;
+            case "PLAC":
+                e.place = new Place();
+                loadPlace(ch, e.place);
+                break;
+            case "OBJE":
+                loadMultimediaLink(ch, e.multimedia);
+                break;
+            case "NOTE":
+                loadNote(ch, e.notes);
+                break;
+            case "SOUR":
+                loadCitation(ch, e.citations);
+                break;
+            case "AGE":
+                e.age = new StringWithCustomTags(ch);
+                break;
+            case "CAUS":
+                e.cause = new StringWithCustomTags(ch);
+                break;
+            case "ADDR":
+                e.address = new Address();
+                loadAddress(ch, e.address);
+                break;
+            case "AGNC":
+                e.respAgency = new StringWithCustomTags(ch);
+                break;
+            case "RESN":
+                e.restrictionNotice = new StringWithCustomTags(ch);
+                if (g55()) {
+                    warnings.add("GEDCOM version is 5.5 but restriction notice was specified for individual event on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                }
+                break;
+            case "RELI":
+                e.religiousAffiliation = new StringWithCustomTags(ch);
+                if (g55()) {
+                    warnings.add("GEDCOM version is 5.5 but religious affiliation was specified for individual event on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                }
+                break;
+            case "PHON":
+                e.phoneNumbers.add(new StringWithCustomTags(ch));
+                break;
+            case "WWW":
+                e.wwwUrls.add(new StringWithCustomTags(ch));
+                if (g55()) {
+                    warnings.add("GEDCOM version is 5.5 but WWW URL was specified on " + e.type + " event on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                }
+                break;
+            case "FAX":
+                e.faxNumbers.add(new StringWithCustomTags(ch));
+                if (g55()) {
+                    warnings.add("GEDCOM version is 5.5 but fax was specified on " + e.type + " event on line " + ch.lineNum + ", which is a GEDCOM 5.5.1 feature.  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                }
+                break;
+            case "EMAIL":
+                e.emails.add(new StringWithCustomTags(ch));
+                if (g55()) {
+                    warnings.add("GEDCOM version is 5.5 but email was specified on " + e.type + " event on line "
+                            + ch.lineNum + ", which is a GEDCOM 5.5.1 feature."
+                            + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
+                }
+                break;
+            case "CONC":
+                if (null == e.description) {
+                    e.description = new StringWithCustomTags(ch);
+                } else {
+                    e.description.value += ch.value;
+                }
+                break;
+            case "CONT":
+                if (null == e.description) {
+                    e.description = new StringWithCustomTags(null == ch.value ? "" : ch.value);
+                } else {
+                    e.description.value += '\n' + ch.value;
+                }
+                break;
+            case "FAMC":
+                List<FamilyChild> families = new ArrayList<>();
+                loadFamilyWhereChild(ch, families);
+                if (!families.isEmpty()) {
+                    e.family = families.get(0);
+                }
+                break;
+            default:
+                unknownTag(ch, e);
+                break;
         }
+    }
 
     }
 
